@@ -20,6 +20,18 @@ func NewAkita(token string) *Akita {
 func NewAkitaWithClient(token string, client *http.Client) *Akita {
 	bot := &Akita{}
 
+	c, _ := LoadConfig()
+	bot.Config = *c
+
+	if token == "" {
+		val := bot.Config.Get("token")
+		if val == nil {
+			panic("no token provided!")
+		}
+
+		token = val.(string)
+	}
+
 	api, err := tgbotapi.NewBotAPIWithClient(token, client)
 	if err != nil {
 		panic(err)
