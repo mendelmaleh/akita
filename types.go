@@ -33,6 +33,30 @@ func (h Help) String(full bool) string {
 	return b.String()
 }
 
+func (h Help) HTMLString(full bool) string {
+	var b strings.Builder
+	b.WriteString("<b>")
+	b.WriteString(h.Name)
+	b.WriteString("</b>")
+
+	if full {
+		b.WriteString("\n")
+		b.WriteString("<i>")
+	} else {
+		b.WriteString(" - ")
+	}
+	b.WriteString(h.Desc)
+
+	if full {
+		b.WriteString("</i>")
+		b.WriteString("\neg: ")
+		b.WriteString(h.Example)
+		b.WriteString("\n")
+	}
+
+	return b.String()
+}
+
 func (h Help) BotfatherString() string {
 	if len(h.Botfather) == 0 {
 		return ""

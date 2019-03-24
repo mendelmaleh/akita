@@ -16,7 +16,9 @@ type helpCommand struct {
 
 func (cmd helpCommand) Help() akita.Help {
 	return akita.Help{
-		Name: "Help",
+		Name:    "Help",
+		Desc:    "List available commands",
+		Example: "/help@@",
 		Botfather: [][]string{
 			[]string{"help", "get a list of available commands"},
 		},
@@ -42,7 +44,7 @@ func (cmd helpCommand) Exec(message tgbotapi.Message) error {
 			}
 		}
 	} else {
-		b.WriteString("*Loaded commands:\n*")
+		b.WriteString("<b>Loaded commands:\n</b>")
 		l := b.Len()
 
 		for _, command := range cmd.Akita.Commands {
@@ -53,16 +55,16 @@ func (cmd helpCommand) Exec(message tgbotapi.Message) error {
 			}
 
 			b.WriteString("\n")
-			b.WriteString(help.String(true))
+			b.WriteString(help.HTMLString(true))
 		}
 
 		if b.Len() == l {
-			b.WriteString("_no commands with descriptions loaded_\n")
+			b.WriteString("<i>no commands with descriptions loaded</i>\n")
 		}
 	}
 
 	msg := tgbotapi.NewMessage(message.Chat.ID, b.String())
 	msg.ReplyToMessageID = message.MessageID
-	msg.ParseMode = "Markdown"
+	msg.ParseMode = "HTML"
 	return cmd.Akita.SendMessage(msg)
 }
