@@ -30,7 +30,7 @@ func (cmd helpCommand) Trigger(message tgbotapi.Message) bool {
 func (cmd helpCommand) Exec(message tgbotapi.Message) error {
 	var b strings.Builder
 
-	if message.CommandArguments() == "botfather" {
+	if akita.SimpleCommandArgs("help", message.Text)[0] == "botfather" {
 		for k, command := range cmd.Akita.Commands {
 			help := command.Command.Help().BotfatherString()
 
@@ -57,7 +57,7 @@ func (cmd helpCommand) Exec(message tgbotapi.Message) error {
 		}
 
 		if b.Len() == l {
-			b.WriteString("_no commands with descriptions_\n")
+			b.WriteString("_no commands with descriptions loaded_\n")
 		}
 	}
 

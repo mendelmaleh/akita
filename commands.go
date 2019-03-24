@@ -17,14 +17,14 @@ func SimpleCommand(command, text string) bool {
 	return regexp.MustCompile("^" + mods + "(" + command + ")(@\\w+)?( .+)?$").MatchString(text)
 }
 
-func SimpleArgCommand(command, text string, args int) bool {
+func SimpleCommandArgs(command, text string) []string {
 	matches := regexp.MustCompile("^" + mods + "(" + command + ")(@\\w+)?( .+)?$").FindStringSubmatch(text)
 	if len(matches) < 4 {
-		return false
+		return nil
 	}
 
-	matchedArgs := len(strings.Split(strings.Trim(matches[3], " "), " "))
-	return args == matchedArgs
+	matchedArgs := strings.Split(strings.Trim(matches[3], " "), " ")
+	return matchedArgs
 }
 
 func (a *Akita) commandRouter(update tgbotapi.Update) {
