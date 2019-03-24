@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+var mods string
+
 type Akita struct {
 	API      *tgbotapi.BotAPI
 	Config   Config
@@ -30,6 +32,13 @@ func NewAkitaWithClient(token string, client *http.Client) *Akita {
 		}
 
 		token = val.(string)
+	}
+
+	val := bot.Config.Get("mods")
+	if val == nil {
+		mods = "/"
+	} else {
+		mods = val.(string)
 	}
 
 	api, err := tgbotapi.NewBotAPIWithClient(token, client)

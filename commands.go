@@ -14,11 +14,11 @@ func RegisterCommand(cmd Command) {
 }
 
 func SimpleCommand(command, text string) bool {
-	return regexp.MustCompile("^/(" + command + ")(@\\w+)?( .+)?$").MatchString(text)
+	return regexp.MustCompile("^" + mods + "(" + command + ")(@\\w+)?( .+)?$").MatchString(text)
 }
 
 func SimpleArgCommand(command, text string, args int) bool {
-	matches := regexp.MustCompile("^/(" + command + ")(@\\w+)?( .+)?$").FindStringSubmatch(text)
+	matches := regexp.MustCompile("^" + mods + "(" + command + ")(@\\w+)?( .+)?$").FindStringSubmatch(text)
 	if len(matches) < 4 {
 		return false
 	}
