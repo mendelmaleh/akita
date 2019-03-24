@@ -35,7 +35,7 @@ func (h Help) String(full bool) string {
 
 func (h Help) HTMLString(full bool) string {
 	var b strings.Builder
-	b.WriteString("<b>")
+	b.WriteString("<b>• ")
 	b.WriteString(h.Name)
 	b.WriteString("</b>")
 
