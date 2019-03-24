@@ -27,9 +27,9 @@ func (cmd cancelCommand) Trigger(message tgbotapi.Message) bool {
 }
 
 func (cmd cancelCommand) Exec(message tgbotapi.Message) error {
-	msg := tgbotapi.NewMessage(message.Chat.ID, "_current commands canceled_")
+	msg := tgbotapi.NewMessage(message.Chat.ID, "<i>current commands canceled</i>")
 	msg.ReplyToMessageID = message.MessageID
-	msg.ParseMode = "Markdown"
+	msg.ParseMode = "HTML"
 	msg.ReplyMarkup = tgbotapi.ReplyKeyboardRemove{
 		RemoveKeyboard: true,
 		Selective:      true,
